@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'bootstrap-pagination',
     'imagekit',
     'gunicorn',
+    'rest_framework',
     'south',
 )
 
@@ -163,6 +164,15 @@ CACHES = {
 }
 
 CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'PAGINATE_BY': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'pykeg.web.api2.authentication.KegbotAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
 
 INTERNAL_IPS = ('127.0.0.1',)
 

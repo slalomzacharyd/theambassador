@@ -22,6 +22,7 @@ DEPENDENCIES = [
   'django-registration == 1.0',
   'django-socialregistration == 0.5.10',
   'django-bootstrap-pagination == 0.1.10',
+  'djangorestframework == 2.3.10',
 
   'Celery == 3.1.11',
   'kombu == 3.0.16',
