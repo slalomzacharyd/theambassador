@@ -32,6 +32,7 @@ urlpatterns = patterns('',
     ### api
     (r'^api/v2/', include('pykeg.web.api2.urls')),
     (r'^api/(v1/)?', include('pykeg.web.api.urls')),
+    url(r'^oauth2/', include('provider.oauth2.urls', namespace='oauth2')),
 
     ### kegbot account
     (r'^account/', include('pykeg.web.account.urls')),

@@ -34,6 +34,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.staticfiles',
 
+    'provider',
+    'provider.oauth2',
+
     'crispy_forms',
     'bootstrap-pagination',
     'imagekit',
@@ -169,6 +172,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
     'PAGINATE_BY': 10,
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.OAuth2Authentication',
         'pykeg.web.api2.authentication.KegbotAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     )
