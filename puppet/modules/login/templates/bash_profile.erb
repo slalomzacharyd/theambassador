@@ -14,6 +14,6 @@ if [ -f .bash_banner ]; then
     # Force the $COLUMNS variable to be set
     grep "none xisting string" .bash_banner
     #Display banner, cropping it if it is too large for the terminal
-    grep "^.\{0,$COLUMNS\}" .bash_banner  -o --color=never
+    grep "^.\{0,$COLUMNS\}" .bash_banner  -o
 fi
 
