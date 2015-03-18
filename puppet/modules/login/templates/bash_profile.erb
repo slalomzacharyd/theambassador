@@ -8,9 +8,12 @@ fi
 # User specific environment and startup programs
 
 PATH=$PATH:$HOME/.local/bin:$HOME/bin
-
 export PATH
 
-if [ -f ~/.bash_banner ]; then
-    cat ~/.bash_banner
+if [ -f .bash_banner ]; then
+    # Force the $COLUMNS variable to be set
+    grep "none xisting string" .bash_banner
+    #Display banner, cropping it if it is too large for the terminal
+    grep "^.\{0,$COLUMNS\}" .bash_banner  -o --color=never
 fi
+
