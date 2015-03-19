@@ -1,15 +1,13 @@
-class login ($user = 'vagrant', $group = 'vagrant', $path = "/home/vagrant") {
-    file {"bash_profile":
-        path => "${path}/.bash_profile",
-        owner => $user,
+class login ($owner = 'vagrant', $group = 'vagrant', $path = "/home/vagrant") {
+    file {"${path}/.bash_profile":
+        owner => $owner,
         group => $group,
         ensure => file,
         content => template("login/bash_profile.erb"),
     }
 
-    file {"bash_banner":
-        path => "${path}/.bash_banner",
-        owner => $user,
+    file {"${path}/.bash_banner":
+        owner => $owner,
         group => $group,
         ensure => file,
         content => template("login/banner.erb"),

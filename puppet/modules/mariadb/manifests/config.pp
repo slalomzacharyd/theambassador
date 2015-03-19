@@ -7,15 +7,9 @@ class mariadb::config ($mariadb_password = "ZcJep8aCqJ3WmhQq7uUACCf9") {
         require => Service["mariadb"],
     }
 
-/*
-
-    define db( $user, $password ) {
-      exec { "create-${name}-db":
-        unless => "/usr/bin/mysql -uroot ${name}",
-        command => "/usr/bin/mysql -uroot -e \"create database ${name};\"",
-        require => Service["mysqld"],
-      }
+    exec { "initialize-mariadb":
+        unless =>
+        path => ["/bin", "/usr/bin"],
+        command => "mysql_install_db --user=mysql",
     }
-    mysql_install_db --user=mysql
-*/
 }
