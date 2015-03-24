@@ -1,0 +1,9 @@
+{
+    "kegbot::applications": {
+        "kegbot": {
+            "env_name": "kegbot",
+            "path": "/home/vagrant",
+            "user": "vagrant"
+        }
+    }
+}
