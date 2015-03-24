@@ -4,4 +4,5 @@
 :json:
   :datadir: hieradata
 :hierarchy:
+  - applications/%{calling_module}
   - common
