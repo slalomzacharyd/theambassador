@@ -1,6 +1,17 @@
 
 node default {
-    include hostname, login, vimenhanced
+    include networking, login, vimenhanced, redis, db
+
+
+#    dbdatabase {'kegbot':
+#        dbpath
+#        provider => mariadbdatabase
+#    }
+#
+#    dbuser {'kegbot':
+#        dbpath
+#        provider => mariadbuser
+#    }
 #     class {"kegbot":
 #         path => "/home/vagrant",
 #         user => "vagrant",
