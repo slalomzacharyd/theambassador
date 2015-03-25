@@ -11,18 +11,23 @@ class db::config ($root, $users) {
     define createUsers ($users) {
         $username = $name
         $details = $users[$username]
+        $password = $details['password']
         mysql_user { $username:
             ensure => present,
             max_connections_per_hour => 0,
             max_queries_per_hour => 0,
             max_updates_per_hour => 0,
             max_user_connections => 0,
-            password_hash => mysql_password('something'),
+            password_hash => mysql_password($password),
         }
     }
 
     $usernames = keys($users)
     createUsers{$usernames:
         users => $users
+    }
+
+    class {"::mysql::bindings": 
+        daemon_dev => true
     }
 }

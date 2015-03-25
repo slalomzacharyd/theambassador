@@ -1,8 +1,21 @@
 {
+    "classes": [
+        "networking",
+        "login",
+        "vimenhanced",
+        "redis",
+        "db",
+        "kegbot"
+    ],
+    "mysql::server::service_name": "mariadb",
+    "mysql::server::package_name": "mariadb-server",
+    "mysql::bindings::daemon_dev_package_ensure": "latest",
+    "mysql::bindings::daemon_dev_package_name": "mariadb-devel",
     "networking::hostname": "theambassador",
     "db::config::root": { "password": "defaultrootpw"},
     "db::config::users": {
-        "kegbot@127.0.0.1": {
+    
+        "kegbot@localhost": {
             "password": "defaultkegbotpw",
             "max_connections_per_hour": 0,
             "max_queries_per_hour": 0,

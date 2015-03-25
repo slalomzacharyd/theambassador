@@ -1,4 +1,4 @@
 
 node default {
-    include networking, login, vimenhanced, redis, db, kegbot
+    hiera_include('classes')
 }

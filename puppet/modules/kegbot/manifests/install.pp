@@ -9,7 +9,7 @@ class kegbot::install ($applications) {
             user => $user,
             path => "/usr/bin",
             creates => "${path}/${env_name}/bin/setup-kegbot.py",
-            require => [ Class['virtualenv'] ],
+            require => [ Class['virtualenv'], Class['db'] ],
         }
 
         class { 'virtualenv':

@@ -1,9 +1,19 @@
 {
-    "kegbot::applications": {
+    "applications": {
         "kegbot": {
             "env_name": "kegbot",
             "path": "/home/vagrant",
-            "user": "vagrant"
+            "user": "vagrant",
+            "db": {
+                "name": "kegbot",
+                "charset": "utf8",
+                "users": {
+                    "kegbot@localhost": [
+                        {"grants": ["ALL"], "target": "kegbot.*"}
+                    ]
+                }
+                
+            }
         }
     }
 }
