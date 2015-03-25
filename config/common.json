@@ -1,5 +1,6 @@
 {
     "classes": [
+        "firewall",
         "networking",
         "login",
         "vimenhanced",
@@ -14,7 +15,6 @@
     "networking::hostname": "theambassador",
     "db::config::root": { "password": "defaultrootpw"},
     "db::config::users": {
-    
         "kegbot@localhost": {
             "password": "defaultkegbotpw",
             "max_connections_per_hour": 0,
@@ -27,6 +27,32 @@
         "vagrant": {
             "group": "vagrant",
             "home": "/home/vagrant"
+        }
+    },
+
+    "applications": {
+        "kegbot": {
+            "module": "kegbot",
+            "env_name": "kegbot",
+            "path": "/home/vagrant",
+            "user": "vagrant",
+            "access_rules": {
+                "http": {
+                    "port": 8000,
+                    "protocol": "tcp",
+                    "ipaddress": "0.0.0.0"
+                }
+            },
+            "db": {
+                "name": "kegbot",
+                "charset": "utf8",
+                "users": {
+                    "kegbot@localhost": [
+                        {"grants": ["ALL"], "target": "kegbot.*"}
+                    ]
+                }
+                
+            }
         }
     }
 }
