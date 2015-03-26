@@ -4,6 +4,7 @@ class kegbot ($applications = hiera('applications')) {
         require => Class['kegbot::install']
     }
     class {'kegbot::install':
-        applications => $applications
+        applications => $applications,
+        require => Class['db'],
     }
 }

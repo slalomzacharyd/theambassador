@@ -32,10 +32,10 @@
 
     "applications": {
         "kegbot": {
-            "module": "kegbot",
             "env_name": "kegbot",
             "path": "/home/vagrant",
             "user": "vagrant",
+            "group": "vagrant",
             "access_rules": {
                 "http": {
                     "port": 8000,
@@ -43,6 +43,8 @@
                     "ipaddress": "0.0.0.0"
                 }
             },
+            "data_root": "/home/vagrant/kegbot-data",
+            "settings_dir": "/home/vagrant/.kegbot",
             "db": {
                 "name": "kegbot",
                 "charset": "utf8",

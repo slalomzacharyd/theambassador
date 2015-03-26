@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short><%= @applicationname %> Development Access Rules</short>
+  <description>Creates public access for this service.</description>
+<% @rules.each do |name, rule| -%>
+  <port protocol="<%= rule['protocol'] %>" port="<%= rule['port'] %>"/>
+<% end -%>
+</service>
+
