@@ -9,7 +9,7 @@ class kegbot::install ($applications) {
             user => $user,
             path => "/usr/bin",
             creates => "${path}/${env_name}/bin/setup-kegbot.py",
-            require => [ Class['virtualenv'], Class['db'] ],
+            require => [ Class['virtualenv'], Class['db'] , Class['jpeg'], Class['nginx'], Class['supervisor'] ]
         }
 
         class { 'virtualenv':
@@ -22,4 +22,6 @@ class kegbot::install ($applications) {
     installKegbots{$names:
         applications => $applications
     }
+
+    include supervisor, jpeg, nginx
 }

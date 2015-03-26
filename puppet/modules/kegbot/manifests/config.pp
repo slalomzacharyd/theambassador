@@ -87,9 +87,14 @@ class kegbot::config ($applications) {
             group => $group,
             user => $user
         }
+        file {"${path}/.bash_sources/${name}":
+            ensure => file,
+            content => template("kegbot/bashrc.erb"),
+            group => $group,
+            owner=> $user
+        }
     }
     setupKegbots{$names:
         applications => $applications
     }
-
 }

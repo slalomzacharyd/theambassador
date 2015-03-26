@@ -17,3 +17,6 @@ if [ -f .bash_banner ]; then
     grep "^.\{0,$COLUMNS\}" .bash_banner  -o
 fi
 
+for f in $(ls <%= @home %>/.bash_sources); do
+    source "<%= @home %>/.bash_sources/${f}"
+done
