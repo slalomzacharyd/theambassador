@@ -1,9 +1,12 @@
 class networking ($hostname) {
-    file { '/etc/hostname':
-        ensure => file,
-        owner => "root",
-        group => "root",
-        content => template("networking/hostname.erb"),
+    package {'hostname':
+        ensure => present,
+        allow_virtual => true,
+    }
+    host { $hostname:
+        ensure => present,
+        ip => "127.0.0.1",
+        require => Package['hostname'],
     }
 
     file { '/etc/hosts':
@@ -11,5 +14,6 @@ class networking ($hostname) {
         owner => "root",
         group => "root",
         content => template("networking/hosts.erb"),
+        require => Package['hostname'],
     }
 }

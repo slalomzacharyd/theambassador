@@ -4,5 +4,6 @@ class vimenhanced::config ($path = '/home/vagrant', $owner = 'vagrant', $group =
         group => $group,
         ensure => file,
         content => template("vimenhanced/vimrc.erb"),
+        require => Class['login'],
     }
 }

@@ -5,6 +5,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder "../config", "/etc/puppet/hieradata"
   config.vm.provision "shell", inline: "puppet module install puppetlabs-stdlib"
   config.vm.provision "shell", inline: "puppet module install puppetlabs-mysql"
+  config.vm.provision "shell", inline: "puppet module install ajcrowe-supervisord"
   config.vm.provision "puppet" do |puppet|
     puppet.manifests_path = "puppet/manifests"
     puppet.manifest_file = "default.pp"

@@ -26,7 +26,8 @@
     "login::users": {
         "vagrant": {
             "group": "vagrant",
-            "home": "/home/vagrant"
+            "home": "/home/vagrant",
+            "shell": "/bin/bash"
         }
     },
 

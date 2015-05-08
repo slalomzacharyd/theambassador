@@ -1,4 +1,4 @@
-class login ($users) {
+class login ($users = hiera('login::users')) {
     $usernames = keys($users)
     define generateUsers($users) {
         $username = $title
@@ -6,9 +6,8 @@ class login ($users) {
         $home = $settings['home']
         $shell = $settings['shell']
         $group = $settings['group']
-        user {$user:
+        user {$username:
             ensure => present,
-            groups => $group,
             home => $home,
             managehome => true,
             shell => $shell,
@@ -21,14 +20,14 @@ class login ($users) {
             mode => "0700",
             purge => true,
             recurse => true,
-            require => User[$user]
+            require => User[$username]
         }
         file {"${home}/.bash_profile":
             owner => $username,
             group => $group,
             ensure => file,
             content => template("login/bash_profile.erb"),
-            require => [User[$user], File["${home}/.bash_sources"]],
+            require => [User[$username], File["${home}/.bash_sources"]],
         }
 
         file {"${home}/.bash_banner":
@@ -36,7 +35,7 @@ class login ($users) {
             group => $group,
             ensure => file,
             content => template("login/banner.erb"),
-            require => User[$user],
+            require => User[$username],
         }
     }
     generateUsers{$usernames:
