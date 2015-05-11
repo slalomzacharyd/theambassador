@@ -3,11 +3,6 @@ class networking ($hostname) {
         ensure => present,
         allow_virtual => true,
     }
-    host { $hostname:
-        ensure => present,
-        ip => "127.0.0.1",
-        require => Package['hostname'],
-    }
 
     file { '/etc/hosts':
         ensure => file,

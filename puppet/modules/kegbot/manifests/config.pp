@@ -10,11 +10,13 @@ class kegbot::config ($applications) {
         mysql_database { $dbname:
             ensure => present,
             charset => $databasecharset,
+            require => Class['db'],
         }
 
         createUserPermissions{$usernames:
             users => $users,
-            applicationname => $name
+            applicationname => $name,
+            require => Class['db'],
         }
     }
 
@@ -22,7 +24,8 @@ class kegbot::config ($applications) {
         $permissions = $users[$name]
         createGrants{$permissions: 
             username => $name,
-            applicationname => $applicationname
+            applicationname => $applicationname,
+            require => Class['db'],
         }
     }
 
@@ -37,7 +40,7 @@ class kegbot::config ($applications) {
             table      => $target,
             user       => $username,
             require    => Class['db'],
-            before     => Exec["setup ${applicationname}"]
+            before     => Exec["setup ${applicationname}"],
         }
     }
 
@@ -64,7 +67,56 @@ class kegbot::config ($applications) {
         $user = $kegbot['user']
         $group = $kegbot['group']
         $data_root = $kegbot['data_root']
+        $access_rules = $kegbot['access_rules']
         $settings_dir = $kegbot['settings_dir']
+
+        supervisord::program { "${name}-gunicorn":
+            command => '/home/vagrant/kegbot/bin/gunicorn pykeg.web.wsgi:application -w 3',
+            priority => '100',
+            environment => {},
+            directory => '/home/vagrant',
+            user => 'vagrant',
+            autostart => true,
+            autorestart => false,
+        }
+
+        supervisord::program { "${name}-workers":
+            command => '/home/vagrant/kegbot/bin/kegbot run_workers',
+            directory => '/home/vagrant',
+            stopasgroup => true,
+            user => 'vagrant',
+            autostart => true,
+            autorestart => false,
+        }
+
+        supervisord::group { "${name}":
+            priority => 100,
+            programs => ["${name}-gunicorn", "${name}-workers"],
+            require => [Supervisord::Program["${name}-gunicorn"], Supervisord::Program["${name}-workers"]]
+        }
+
+        file {"/etc/nginx/sites-available/kegbot.conf":
+            content => template("kegbot/nginx.conf.erb"),
+            require => Class['nginx'],
+        }
+
+        file {"/etc/nginx/conf.d/kegbot.conf":
+            ensure => link,
+            target => "/etc/nginx/sites-available/kegbot.conf",
+            require => File['/etc/nginx/sites-available/kegbot.conf'],
+        }
+
+        exec{"mkdir -p ${data_root}":
+            path => "/usr/bin"
+        }
+
+        file {"${data_root}":
+            ensure => directory,
+            group => "nginx",
+            owner => "vagrant",
+            require => Exec["mkdir -p ${data_root}"],
+        }
+            
 
         $setup_kegbot_command = join([
             "setup-kegbot.py",
@@ -85,8 +137,10 @@ class kegbot::config ($applications) {
             path => "/usr/bin",
             cwd => $path,
             group => $group,
-            user => $user
+            user => $user,
+            require => [File["${data_root}"], Supervisord::Group["${name}"]]
         }
+
         file {"${path}/.bash_sources/${name}":
             ensure => file,
             content => template("kegbot/bashrc.erb"),

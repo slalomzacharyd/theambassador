@@ -39,12 +39,12 @@
             "group": "vagrant",
             "access_rules": {
                 "http": {
-                    "port": 8000,
+                    "port": 8080,
                     "protocol": "tcp",
                     "ipaddress": "0.0.0.0"
                 }
             },
-            "data_root": "/home/vagrant/kegbot-data",
+            "data_root": "/data/kegbot/www/kegbot-data",
             "settings_dir": "/home/vagrant/.kegbot",
             "db": {
                 "name": "kegbot",

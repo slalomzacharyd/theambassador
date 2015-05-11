@@ -5,7 +5,13 @@ class db::config ($root, $users) {
         create_root_user => true,
         root_password => $root_password,
         remove_default_accounts => true,
-        service_enabled => true,
+        service_enabled => false,
+    }
+
+    supervisord::program { 'mysql':
+        command => '/usr/bin/mysqld_safe --basedir=/usr',
+        priority => '100',
+        environment => {},
     }
 
     define createUsers ($users) {

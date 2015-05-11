@@ -1,3 +1,6 @@
-file {"/etcnginxsites-available/kegbot.conf":
-    source => template("nginx/nginx.conf.erb")
+class nginx::config {
+    file {'/etc/nginx/sites-available':
+        ensure => directory,
+        force => true,
+    }
 }

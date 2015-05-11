@@ -1,8 +1,8 @@
 class supervisor::install {
-    package {"supervisor":
-        ensure => latest,
-        allow_virtual => false,
-        require => Class['epel'],
+    class {'supervisord': 
+        package_provider => 'yum',
+        install_init => false,
+        service_name => 'supervisord'
     }
 }
 

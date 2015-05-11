@@ -15,7 +15,8 @@ class firewall::config($applications = hiera_hash("applications")) {
         owner => 'root',
         group => 'root',
         mode => '0600',
-        notify => Class['firewall::service']
+        notify => Class['firewall::service'],
+        require => Class['firewall::install']
     }
 
     define createApplicationRules($applications) {
@@ -29,7 +30,8 @@ class firewall::config($applications = hiera_hash("applications")) {
             owner => 'root',
             group => 'root',
             mode => '0600',
-            notify => Class['firewall::service']
+            notify => Class['firewall::service'],
+            require => Class['firewall::install']
         }
     }
 
@@ -39,7 +41,8 @@ class firewall::config($applications = hiera_hash("applications")) {
         owner => 'root',
         group => 'root',
         mode => '0600',
-        notify => Class['firewall::service']
+        notify => Class['firewall::service'],
+        require => Class['firewall::install']
     }
 
     createApplicationRules{$applicationnames:

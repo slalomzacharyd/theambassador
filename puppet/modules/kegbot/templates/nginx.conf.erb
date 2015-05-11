@@ -15,7 +15,7 @@ upstream kegbot {
 }
 
 server {
-  listen 80;
+  listen <%= @access_rules['http']['port'] %>;
   tcp_nopush on;
   tcp_nodelay on;
 
@@ -36,8 +36,8 @@ server {
     proxy_pass          http://kegbot;
   }
 
-  location /media/ {
-    alias           /data/kegbot/www/media/;
+  location /media {
+    alias           <%= @data_root %>/media;
     access_log      off;
     log_not_found   off;
     expires         7d;
@@ -45,8 +45,8 @@ server {
     add_header      cache-control "public";
   }
 
-  location /static/ {
-    alias           /data/kegbot/www/static/;
+  location /static {
+    alias           <%= @data_root %>/static;
     access_log      off;
     log_not_found   off;
     expires         7d;
@@ -55,13 +55,13 @@ server {
   }
 
   location /robots.txt {
-    root            /data/kegbot/www/static/;
+    root            <%= @data_root %>/static;
     access_log      off;
     log_not_found   off;
   }
 
   location /favicon.ico {
-    root            /data/kegbot/www/static/;
+    root            <%= @data_root %>/static;
     access_log      off;
     log_not_found   off;
   }

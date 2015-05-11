@@ -5,7 +5,7 @@ LABEL Description="This image is used to start the foobar executable" Vendor="AC
 
 
 RUN rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
-RUN yum install puppet tar supervisor -y
+RUN yum install puppet tar -y
 
 ADD ["vagrant/puppet/", "/tmp/puppet"]
 ADD ["config/", "/etc/puppet/hieradata/"]
@@ -16,10 +16,9 @@ RUN puppet module install puppetlabs-stdlib
 RUN puppet module install puppetlabs-mysql
 RUN puppet module install ajcrowe-supervisord
 
-RUN cd /etc/puppet && puppet apply --hiera_config /etc/puppet/hiera.yaml --modulepath=/tmp/puppet/modules:/etc/puppet/modules /tmp/puppet/manifests/default.pp --verbose --debug
+ENV HOSTNAME="theambassador"
+ENV FACTER_hostname="theambassador"
 
+RUN  cd /etc/puppet && puppet apply --hiera_config /etc/puppet/hiera.yaml --modulepath=/tmp/puppet/modules:/etc/puppet/modules /tmp/puppet/manifests/default.pp --verbose --debug
 
 EXPOSE 8000
-VOLUME [ "/sys/fs/cgroup" ]
-CMD ["/usr/sbin/init"]
-
