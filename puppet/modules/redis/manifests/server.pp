@@ -1,7 +1,8 @@
 class redis::server {
-    service{'redis':
-        ensure => running,
-        enable => true,
-        require => Class['redis::install']
+    supervisord::program { "redis":
+        command => '/usr/bin/redis-server /etc/redis.conf --daemonize no',
+        priority => '100',
+        autostart => true,
+        autorestart => false,
     }
 }

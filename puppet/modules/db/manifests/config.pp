@@ -5,9 +5,14 @@ class db::config ($root, $users) {
         create_root_user => true,
         root_password => $root_password,
         remove_default_accounts => true,
-        service_enabled => true,
-        service_manage => true,
+        service_enabled => false,
+        service_name => 'mariadb',
+        service_manage => false,
+        package_manage => false,
+        package_name => 'mariadb-server',
+        require => Exec['reload-mysql'],
     }
+    contain '::mysql::server'
 
     define createUsers ($users) {
         $username = $name
@@ -20,15 +25,12 @@ class db::config ($root, $users) {
             max_updates_per_hour => 0,
             max_user_connections => 0,
             password_hash => mysql_password($password),
+            require => Exec['reload-mysql'],
         }
     }
 
     $usernames = keys($users)
     createUsers{$usernames:
         users => $users
-    }
-
-    class {"::mysql::bindings": 
-        daemon_dev => true 
     }
 }
