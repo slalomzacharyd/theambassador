@@ -78,7 +78,6 @@ class kegbot::config ($applications) {
             user => 'vagrant',
             autostart => true,
             autorestart => false,
-            require => File["/etc/nginx/conf.d/${name}.conf"],
         }
 
         supervisord::program { "${name}-workers":
@@ -105,6 +104,11 @@ class kegbot::config ($applications) {
             ensure => link,
             target => "/etc/nginx/sites-available/${name}.conf",
             require => File["/etc/nginx/sites-available/${name}.conf"],
+        }
+
+        supervisord::supervisorctl { "restart_nginx":
+            command => "reload",
+            require => [Class['supervisor'], File["/etc/nginx/conf.d/${name}.conf"]],
         }
 
         exec{"mkdir -p ${data_root}":
