@@ -1,3 +1,3 @@
 class supervisor {
-    include supervisor::install
+    contain supervisor::install
 }

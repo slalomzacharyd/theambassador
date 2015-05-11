@@ -1,3 +1,3 @@
 class redis {
-    include redis::install, redis::server
+    contain redis::install, redis::server
 }

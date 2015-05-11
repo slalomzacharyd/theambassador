@@ -10,8 +10,8 @@
     ],
     "mysql::server::service_name": "mariadb",
     "mysql::server::package_name": "mariadb-server",
-    "mysql::bindings::daemon_dev_package_ensure": "latest",
     "mysql::bindings::daemon_dev_package_name": "mariadb-devel",
+    "mysql::bindings::daemon_dev_package_ensure": "latest",
     "networking::hostname": "theambassador",
     "db::config::root": { "password": "defaultrootpw"},
     "db::config::users": {

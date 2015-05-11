@@ -3,7 +3,7 @@
   <short>Development Access Rules</short>
   <description>Allows other computers to request kegbot webpages.</description>
   
-  <% @applications.each do |name, application| -%>
+  <% @applications_merged.each do |name, application| -%>
   <service name="<%= name %>"/>
   <% end -%>
 </zone>

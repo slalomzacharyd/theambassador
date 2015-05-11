@@ -1,13 +1,15 @@
 class firewall::config($applications = hiera_hash("applications")) {
-    $applications["core"] = {
-        access_rules => {
-            "ssh" => {
-                port => 22,
-                protocol => "tcp"
+    $applications_merged = merge($applications, {
+        'core' => {
+            'access_rules' => {
+                'ssh' => {
+                    'port' => 22,
+                    'protocol' => "tcp"
+                }
             }
         }
-    }
-    $applicationnames = keys($applications)
+    })
+    $applicationnames = keys($applications_merged)
 
     file {'/etc/firewalld/zones/development.xml':
         ensure => file,
@@ -46,7 +48,7 @@ class firewall::config($applications = hiera_hash("applications")) {
     }
 
     createApplicationRules{$applicationnames:
-        applications => $applications
+        applications => $applications_merged
     }
 
 }

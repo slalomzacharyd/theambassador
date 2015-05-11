@@ -7,5 +7,5 @@ class virtualenv($path, $env_name, $user) {
         require => Class["virtualenv::install"]
     }
 
-    include virtualenv::install
+    contain virtualenv::install
 }

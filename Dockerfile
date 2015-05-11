@@ -21,4 +21,5 @@ ENV FACTER_hostname="theambassador"
 
 RUN  cd /etc/puppet && puppet apply --hiera_config /etc/puppet/hiera.yaml --modulepath=/tmp/puppet/modules:/etc/puppet/modules /tmp/puppet/manifests/default.pp --verbose --debug
 
-EXPOSE 8000
+EXPOSE 8080
+EXPOSE 9000

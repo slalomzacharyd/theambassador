@@ -78,6 +78,7 @@ class kegbot::config ($applications) {
             user => 'vagrant',
             autostart => true,
             autorestart => false,
+            require => File["/etc/nginx/conf.d/${name}.conf"],
         }
 
         supervisord::program { "${name}-workers":
@@ -95,15 +96,15 @@ class kegbot::config ($applications) {
             require => [Supervisord::Program["${name}-gunicorn"], Supervisord::Program["${name}-workers"]]
         }
 
-        file {"/etc/nginx/sites-available/kegbot.conf":
+        file {"/etc/nginx/sites-available/${name}.conf":
             content => template("kegbot/nginx.conf.erb"),
             require => Class['nginx'],
         }
 
-        file {"/etc/nginx/conf.d/kegbot.conf":
+        file {"/etc/nginx/conf.d/${name}.conf":
             ensure => link,
-            target => "/etc/nginx/sites-available/kegbot.conf",
-            require => File['/etc/nginx/sites-available/kegbot.conf'],
+            target => "/etc/nginx/sites-available/${name}.conf",
+            require => File["/etc/nginx/sites-available/${name}.conf"],
         }
 
         exec{"mkdir -p ${data_root}":

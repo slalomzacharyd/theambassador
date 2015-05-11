@@ -1,1 +1,2 @@
-class db::install {}
+class db::install {
+}
