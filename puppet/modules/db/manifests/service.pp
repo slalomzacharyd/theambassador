@@ -15,6 +15,6 @@ class db::service {
     exec {'reload-mysql':
         command => 'supervisorctl reload; /usr/libexec/mariadb-wait-ready; sleep 1s',
         path => "/usr/bin",
-        require => Supervisord::Program['mysql'],
+        require => [Supervisord::Program['mysql'], Exec["/usr/bin/supervisord -c /etc/supervisord.conf"]]
     }
 }

@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder "../config", "/etc/puppet/hieradata"
   config.vm.provision "shell", inline: "yum install puppet git -y"
   config.vm.provision "shell", inline: "puppet module install puppetlabs-stdlib"
-  config.vm.provision "shell", inline: "puppet module install ajcrowe-supervisord"
+  config.vm.provision "shell", inline: "if [ ! -d '/etc/puppet/modules/mysql' ]; then git clone https://github.com/slalomzacharyd/puppet-supervisord.git /etc/puppet/modules/supervisord; fi";
   config.vm.provision "shell", inline: "if [ ! -d '/etc/puppet/modules/mysql' ]; then git clone https://github.com/slalomzacharyd/puppetlabs-mysql.git /etc/puppet/modules/mysql; fi"; 
   config.vm.provision "puppet" do |puppet|
     puppet.manifests_path = "puppet/manifests"

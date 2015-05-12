@@ -1,7 +1,14 @@
 {
-    "classes": [
+    "classes::vm": [
         "firewall",
         "networking",
+        "login",
+        "vimenhanced",
+        "redis",
+        "db",
+        "kegbot"
+    ],
+    "classes::docker": [
         "login",
         "vimenhanced",
         "redis",

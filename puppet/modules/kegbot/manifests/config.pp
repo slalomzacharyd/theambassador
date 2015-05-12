@@ -81,7 +81,7 @@ class kegbot::config ($applications) {
         }
 
         supervisord::program { "${name}-workers":
-            command => '/home/vagrant/kegbot/bin/kegbot run_workers',
+            command => 'bash -c "rm /tmp/kegbot_run_workers.pid; /home/vagrant/kegbot/bin/kegbot run_workers"',
             directory => '/home/vagrant',
             stopasgroup => true,
             user => 'vagrant',
