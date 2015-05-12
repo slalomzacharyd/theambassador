@@ -30,7 +30,8 @@ $ edit ../config/common.json
 $ sh setup.sh
 $ docker images
 $ docker run -p [imageid] supervisord
-$ firefox localhost:8080
+$ docker ps
+$ firefox localhost:[port returned by docker ps]
 
 ```
 
