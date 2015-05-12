@@ -8,14 +8,27 @@ and managing kegged beverages.
 
 ## Quick start
 
-Super quick start instructions:
+Super quick start instructions for development:
 
 ```
-$ mkvirtualenv kb
-(kb) $ pip install kegbot
-(kb) $ setup-kegbot.py
-(kb) $ kegbot runserver
-Development server is running at http://localhost:8000/
+$ git clone https://github.com/slalomzacharyd/theambassador.git
+$ cd theambassador
+$ cp -r config ../
+$ edit ../config/common.json
+$ vagrant up
+$ firefox localhost:8080
+```
+
+Super quick start instructions for a docker app
+$ git clone https://github.com/slalomzacharyd/theambassador.git
+$ cd theambassador
+$ cp -r config ../
+$ edit ../config/common.json
+$ sh setup.sh
+$ docker images
+$ docker run -p [imageid] supervisord
+$ firefox localhost:8080
+
 ```
 
 For much more detail, see the complete [Kegbot Server documentation](http://kegbot.org/docs/server/).
