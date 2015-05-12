@@ -6,6 +6,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest:8080, host:8080
   config.vm.synced_folder "../config", "/etc/puppet/hieradata"
   config.vm.provision "shell", inline: "yum install puppet git -y"
+  config.vm.provision "shell", inline: "puppet module install puppetlabs-concat"
   config.vm.provision "shell", inline: "puppet module install puppetlabs-stdlib"
   config.vm.provision "shell", inline: "if [ ! -d '/etc/puppet/modules/mysql' ]; then git clone https://github.com/slalomzacharyd/puppet-supervisord.git /etc/puppet/modules/supervisord; fi";
   config.vm.provision "shell", inline: "if [ ! -d '/etc/puppet/modules/mysql' ]; then git clone https://github.com/slalomzacharyd/puppetlabs-mysql.git /etc/puppet/modules/mysql; fi"; 

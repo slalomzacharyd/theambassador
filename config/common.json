@@ -6,14 +6,16 @@
         "vimenhanced",
         "redis",
         "db",
-        "kegbot"
+        "kegbot",
+        "developmenttools"
     ],
     "classes::docker": [
         "login",
         "vimenhanced",
         "redis",
         "db",
-        "kegbot"
+        "kegbot",
+        "developmenttools"
     ],
     "mysql::server::service_name": "mariadb",
     "mysql::server::package_name": "mariadb-server",

@@ -6,7 +6,7 @@ class kegbot ($applications = hiera('applications')) {
     contain 'kegbot::config'
     class {'kegbot::install':
         applications => $applications,
-        require => Class['db'],
+        require => [Class['db'], Class['developmenttools']]
     }
     contain 'kegbot::install'
 }

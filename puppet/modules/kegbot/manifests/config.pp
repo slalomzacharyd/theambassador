@@ -73,11 +73,13 @@ class kegbot::config ($applications) {
         supervisord::program { "${name}-gunicorn":
             command => '/home/vagrant/kegbot/bin/gunicorn pykeg.web.wsgi:application -w 3',
             priority => '100',
-            environment => {},
             directory => '/home/vagrant',
             user => 'vagrant',
             autostart => true,
             autorestart => false,
+            environment => {
+              'HOME'   => '/home/vagrant',
+            }
         }
 
         supervisord::program { "${name}-workers":
@@ -87,6 +89,9 @@ class kegbot::config ($applications) {
             user => 'vagrant',
             autostart => true,
             autorestart => false,
+            environment => {
+              'HOME'   => '/home/vagrant',
+            }
         }
 
         supervisord::group { "${name}":
@@ -107,7 +112,7 @@ class kegbot::config ($applications) {
         }
 
         supervisord::supervisorctl { "restart_nginx":
-            command => "reload",
+            command => " reload",
             require => [Class['supervisor'], File["/etc/nginx/conf.d/${name}.conf"]],
         }
 
