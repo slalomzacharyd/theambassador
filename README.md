@@ -17,9 +17,12 @@ $ cp -r config ../
 $ edit ../config/common.json
 $ vagrant up
 $ firefox localhost:8080
+
 ```
 
-Super quick start instructions for a docker app
+Super quick start instructions for a docker app :
+
+```
 $ git clone https://github.com/slalomzacharyd/theambassador.git
 $ cd theambassador
 $ cp -r config ../
