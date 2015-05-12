@@ -2,8 +2,7 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "puppetlabs/centos-7.0-64-puppet"
   config.vm.hostname = "theambassador"
-  config.vm.network "forwarded_port", guest:9000, host:9000
-  config.vm.network "forwarded_port", guest:8080, host:8080
+  config.vm.network "forwarded_port", guest:8000, host:8000
   config.vm.synced_folder "../config", "/etc/puppet/hieradata"
   config.vm.provision "shell", inline: "yum install puppet git -y"
   config.vm.provision "shell", inline: "puppet module install puppetlabs-concat"
@@ -17,11 +16,6 @@ Vagrant.configure("2") do |config|
     puppet.hiera_config_path = "hiera.yaml"
     puppet.working_directory = "/etc/puppet"
     puppet.options = "--verbose --debug"
-  end
-
-  config.vm.provider :aws do |aws, override|
-    override.ssh.username = "ubuntu"
-    override.ssh.private_key_path = "PATH TO YOUR PRIVATE KEY"
   end
 end
 
