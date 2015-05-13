@@ -1,11 +1,16 @@
+require "json"
 
 Vagrant.configure("2") do |config|
+  cwd = File.expand_path File.dirname(__FILE__)
+  settings = JSON.parse(File.read("#{cwd}/../config/common.json"))
+  server_port = settings['applications']['kegbot']['access_rules']['http']['port']
+
   config.vm.provider "virtualbox" do |v|
     v.name = "Kegbot"
   end
   config.vm.box = "puppetlabs/centos-7.0-64-puppet"
   config.vm.hostname = "theambassador"
-  config.vm.network "forwarded_port", guest:8080, host:8080
+  config.vm.network "forwarded_port", guest:server_port, host:server_port
   config.vm.synced_folder "../config", "/etc/puppet/hieradata"
   config.vm.provision "shell", inline: "yum install puppet git -y"
   config.vm.provision "shell", inline: "puppet module install puppetlabs-concat"
@@ -21,4 +26,3 @@ Vagrant.configure("2") do |config|
     puppet.options = "--verbose --debug"
   end
 end
-

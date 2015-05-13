@@ -19,7 +19,7 @@ dockerfile = dockerfile_template.result()
 
 #Create the docker image
 File.write("Dockerfile-#{server_name}.tmp", dockerfile)
-#system "sudo docker build --no-cache -f Dockerfile-#{server_name}.tmp -t kegbot/#{server_name} ."
+system "sudo docker build --no-cache -f Dockerfile-#{server_name}.tmp -t kegbot/#{server_name} ."
 File.delete("Dockerfile-#{server_name}.tmp")
 
 Dir.chdir(cwd)
