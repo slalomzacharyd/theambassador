@@ -8,30 +8,34 @@ and managing kegged beverages.
 
 ## Quick start
 
-Super quick start instructions for development:
+Super quick start instructions for development (using vagrant and virtualbox):
 
 ```
-$ git clone https://github.com/slalomzacharyd/theambassador.git
-$ cd theambassador
-$ cp -r config ../
-$ edit ../config/common.json
-$ vagrant up
-$ firefox localhost:8080
+$ pacman -S virtualbox      # Install virtualbox from https://www.virtualbox.org/
+$ pacman -S vagrant         # Install vagrant from https://www.vagrantup.com/
+$ pacman -S git             # Install git
+$ git clone https://github.com/slalomzacharyd/theambassador.git  # Clone the repository
+$ cd theambassador          # cd into the repository's directory
+$ cp -r config ../          # Make a copy of the default config outside of the repository
+$ vim ../config/common.json # Edit the config to remove the default passwords and such
+$ vagrant up                # Start vagrant to provision kegbot
+$ firefox localhost:8080    # Load the kegbot web ui!
 
 ```
 
 Super quick start instructions for a docker app :
 
 ```
-$ git clone https://github.com/slalomzacharyd/theambassador.git
-$ cd theambassador
-$ cp -r config ../
-$ edit ../config/common.json
-$ sh setup.sh
-$ docker images
-$ docker run -p [imageid] supervisord
-$ docker ps
-$ firefox localhost:[port returned by docker ps]
+$ pacman -S docker          # Install docker
+$ systemctl start docker; systemctl enable docker;  # Start the docker service and enable it for future boots
+$ pacman -S git             # Install git
+$ git clone https://github.com/slalomzacharyd/theambassador.git  #Clone the repository
+$ cd theambassador          # cd into the repository's directory
+$ cp -r config ../          # Make a copy of the default config outside of the repository
+$ vim ../config/common.json # Edit the config to remove the default passwords and such
+$ ruby docker/setup.rb      # Build the kegbot docker image
+$ systemctl start kegbot-theambassador  # Start the webserver
+$ firefox localhost:8080   #Load the kegbot web ui!
 
 ```
 

@@ -4,6 +4,7 @@ require "json"
 require "erb"
 
 cwd = File.expand_path File.dirname(__FILE__)
+Dir.chdir(cwd)
 Dir.chdir('..')
 build_dir = File.basename(Dir.pwd)
 Dir.chdir('..')
