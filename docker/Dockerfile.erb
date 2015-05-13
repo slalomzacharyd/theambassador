@@ -10,7 +10,6 @@ RUN yum install puppet tar git -y
 ADD ["<%= build_dir %>/puppet/", "/tmp/puppet"]
 ADD ["config/", "/etc/puppet/hieradata/"]
 ADD ["<%= build_dir %>/hiera.yaml", "/etc/puppet/"]
-ADD ["<%= build_dir %>/hiera.yaml", "/etc/puppet/"]
 
 RUN puppet module install puppetlabs-concat
 RUN puppet module install puppetlabs-stdlib

@@ -11,6 +11,9 @@ Dir.chdir('..')
 
 
 config = JSON.parse(File.read("#{cwd}/../../config/common.json"))
+if File.symlink?("#{cwd}/../../config")
+    raise IOError, "The config directory cannot be a symbolic link"
+end
 
 server_name = config["networking::hostname"]
 server_port = config['applications']['kegbot']['access_rules']['http']['port']
