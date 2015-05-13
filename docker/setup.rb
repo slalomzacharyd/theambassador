@@ -35,5 +35,7 @@ File.write("/usr/lib/systemd/system/kegbot-#{server_name}.service", service)
 
 script_template = ERB.new(File.read('kegbot.prescript.erb'))
 script = script_template.result()
+FileUtils.mkdir_p "/usr/lib/systemd/scripts/kegbot-#{server_name}-prestart"
 File.write("/usr/lib/systemd/scripts/kegbot-#{server_name}-prestart", script)
+FileUtils.mkdir_p "/usr/lib/systemd/scripts/kegbot-#{server_name}-prestart"
 File.chmod(0755, "/usr/lib/systemd/scripts/kegbot-#{server_name}-prestart")
