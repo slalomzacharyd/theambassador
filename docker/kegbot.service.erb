@@ -5,7 +5,7 @@ After=docker.service
 
 [Service]
 Restart=always
-ExecStartPre=/usr/lib/systemd/scripts/kegbot-theambassador-prestart
+ExecStartPre=/usr/lib/systemd/scripts/kegbot-<%= server_name %>-prestart
 ExecStart=/usr/bin/docker start -a kegbot-<%= server_name %>
 ExecStop=/usr/bin/docker stop -t 2 kegbot-<%= server_name %>
 

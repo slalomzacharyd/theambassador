@@ -14,7 +14,7 @@ ADD ["<%= build_dir %>/hiera.yaml", "/etc/puppet/"]
 RUN puppet module install puppetlabs-concat
 RUN puppet module install puppetlabs-stdlib
 
-RUN if [ ! -d '/etc/puppet/modules/mysql' ]; then git clone https://github.com/slalomzacharyd/puppet-supervisord.git /etc/puppet/modules/supervisord; fi
+RUN if [ ! -d '/etc/puppet/modules/supervisord' ]; then git clone https://github.com/slalomzacharyd/puppet-supervisord.git /etc/puppet/modules/supervisord; fi
 RUN if [ ! -d '/etc/puppet/modules/mysql' ]; then git clone https://github.com/slalomzacharyd/puppetlabs-mysql.git /etc/puppet/modules/mysql; fi
 
 ENV HOSTNAME="theambassador"
