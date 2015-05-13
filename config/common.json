@@ -48,7 +48,7 @@
             "group": "vagrant",
             "access_rules": {
                 "http": {
-                    "port": 8000,
+                    "port": 8080,
                     "protocol": "tcp",
                     "ipaddress": "0.0.0.0"
                 }

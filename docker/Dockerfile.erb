@@ -30,4 +30,6 @@ RUN rm -rf /tmp/kegbot_run_workers.pid
 
 VOLUME /var/lib/mysql
 
-EXPOSE 8000
+EXPOSE <%= server_port %>
+
+CMD /usr/bin/supervisord -c /etc/supervisord.conf

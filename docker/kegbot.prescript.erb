@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#Force creation of an initial container if it doesn't exist already
+if ! /usr/bin/docker inspect kegbot-<%= server_name %> 2> /dev/null > /dev/null; then
+    /usr/bin/docker run -d -p <%= server_port %>:<%= server_port %> --name=kegbot-<%= server_name %> -i -t kegbot/<%= server_name %>
+    docker stop kegbot-<%= server_name %>
+fi

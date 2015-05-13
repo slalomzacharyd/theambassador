@@ -1,0 +1,13 @@
+[Unit]
+Description=kegbot/<%= server_name %> container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStartPre=/usr/lib/systemd/scripts/kegbot-theambassador-prestart
+ExecStart=/usr/bin/docker start -a kegbot-<%= server_name %>
+ExecStop=/usr/bin/docker stop -t 2 kegbot-<%= server_name %>
+
+[Install]
+WantedBy=local.target
