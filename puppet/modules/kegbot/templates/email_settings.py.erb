@@ -1,0 +1,15 @@
+# Tell Kegbot use the SMTP e-mail backend.
+EMAIL_BACKEND = '<%= @email['backend'] %>'
+
+# SMTP server hostname (default: 'localhost') and port (default: 25).
+EMAIL_HOST = '<%= @email['host'] %>'
+EMAIL_PORT = <%= @email['port'] %>
+
+# Credentials for SMTP server.
+EMAIL_HOST_USER = '<%= @email['username'] %>'
+EMAIL_HOST_PASSWORD = '<%= @email['password'] %>'
+EMAIL_USE_SSL = <%= @email['use_ssl'] %>
+EMAIL_USE_TLS = <%= @email['use_tls'] %>
+
+# "From" address for e-mails.
+EMAIL_FROM_ADDRESS = '<%= @email['from_address'] %>'
