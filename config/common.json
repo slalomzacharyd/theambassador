@@ -42,7 +42,7 @@
 
     "applications": {
         "kegbot": {
-            "debug": "False",
+            "debug": "True",
             "env_name": "kegbot",
             "path": "/home/vagrant",
             "user": "vagrant",
