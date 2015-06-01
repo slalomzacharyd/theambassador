@@ -64,6 +64,8 @@ class kegbot::config ($applications) {
         $dbpassword = $dbusers[$dbusername]['password']
         $env_name = $kegbot['env_name']
         $path = $kegbot['path']
+        $email = $kegbot['email']
+        $debug = $kegbot['debug']
         $user = $kegbot['user']
         $group = $kegbot['group']
         $data_root = $kegbot['data_root']
@@ -109,6 +111,28 @@ class kegbot::config ($applications) {
             ensure => link,
             target => "/etc/nginx/sites-available/${name}.conf",
             require => File["/etc/nginx/sites-available/${name}.conf"],
+        }
+
+        file {"${path}/.kegbot/email_settings.py":
+            content => template("kegbot/email_settings.py.erb"),
+            require => Exec["setup ${name}"],
+        }
+
+        file_line { 'email settings import':
+            line => 'from email_settings import *',
+            path => "${path}/.kegbot/local_settings.py",
+            require => File["${path}/.kegbot/email_settings.py"],
+        }
+
+        file {"${path}/.kegbot/override_settings.py":
+            content => template("kegbot/override_settings.py.erb"),
+            require => Exec["setup ${name}"],
+        }
+
+        file_line { 'override settings import':
+            line => 'from override_settings import *',
+            path => "${path}/.kegbot/local_settings.py",
+            require => File["${path}/.kegbot/override_settings.py"],
         }
 
         supervisord::supervisorctl { "restart_nginx":

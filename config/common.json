@@ -42,6 +42,7 @@
 
     "applications": {
         "kegbot": {
+            "debug": "False",
             "env_name": "kegbot",
             "path": "/home/vagrant",
             "user": "vagrant",
@@ -52,6 +53,16 @@
                     "protocol": "tcp",
                     "ipaddress": "0.0.0.0"
                 }
+            },
+            "email": {
+                "backend": "django.core.mail.backends.smtp.EmailBackend",
+                "host": "smtp.gmail.com",
+                "port": 587,
+                "username": "theambassador@gmail.com",
+                "password": "invalid password",
+                "use_ssl": "False",
+                "use_tls": "True",
+                "from_address": "theambassador@gmail.com"
             },
             "data_root": "/data/kegbot/www/kegbot-data",
             "settings_dir": "/home/vagrant/.kegbot",
