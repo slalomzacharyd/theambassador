@@ -30,7 +30,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest:server_port, host:server_port
   config.vm.synced_folder "../config", "/etc/puppet/hieradata"
   config.vm.provision "shell", inline: "yum update -y; yum upgrade -y"
-  config.vm.provision "shell", inline: "rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm"
+  config.vm.provision "shell", inline: "rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm || true"
   config.vm.provision "shell", inline: "yum install puppet git -y"
   config.vm.provision "shell", inline: "puppet module install puppetlabs-concat"
   config.vm.provision "shell", inline: "puppet module install puppetlabs-stdlib"
