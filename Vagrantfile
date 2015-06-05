@@ -5,11 +5,6 @@ Vagrant.configure("2") do |config|
   settings = JSON.parse(File.read("#{cwd}/../config/common.json"))
   server_port = settings['applications']['kegbot']['access_rules']['http']['port']
 
-  config.vm.provider "virtualbox" do |v|
-    v.name = "Kegbot"
-    config.vm.box = "puppetlabs/centos-7.0-64-puppet"
-  end
-
   config.vm.provider "hyperv" do |v|
     # For networking it is recommended you:
     # 1) Set up an Internal Virtual Network in HyperV
@@ -24,6 +19,11 @@ Vagrant.configure("2") do |config|
     # accidentally commited to the repository.
 
     config.vm.box = "giseongeom/centos7-64"
+  end
+
+  config.vm.provider "virtualbox" do |v|
+    v.name = "Kegbot"
+    config.vm.box = "jhcook/centos7"
   end
 
   config.vm.hostname = "theambassador"
