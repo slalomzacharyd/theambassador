@@ -5,29 +5,25 @@ Vagrant.configure("2") do |config|
   settings = JSON.parse(File.read("#{cwd}/../config/common.json"))
   server_port = settings['applications']['kegbot']['access_rules']['http']['port']
 
-  config.vm.define "hyperv" do |subconfig|
-    subconfig.vm.provider "hyperv" do |p|
-      # For networking it is recommended you:
-      # 1) Set up an Internal Virtual Network in HyperV
-      # 2) Go to the Network Connections window and  share your internet to it
-      # 3) When you create the instance with vagrant up, select the
-      #    Internal Virtual Network
+  config.vm.provider "hyperv" do |hv, override|
+    # For networking it is recommended you:
+    # 1) Set up an Internal Virtual Network in HyperV
+    # 2) Go to the Network Connections window and  share your internet to it
+    # 3) When you create the instance with vagrant up, select the
+    #    Internal Virtual Network
 
-      # You should set up your samba connections you should create your own
-      # as detailed at <http://docs.vagrantup.com/v2/synced-folders/smb.html>.
-      # It should be in ~/vagrant.d as per the documentation at
-      # <http://docs.vagrantup.com/v2/vagrantfile/index.html> so it never gets
-      # accidentally commited to the repository.
+    # You should set up your samba connections you should create your own
+    # as detailed at <http://docs.vagrantup.com/v2/synced-folders/smb.html>.
+    # It should be in ~/vagrant.d as per the documentation at
+    # <http://docs.vagrantup.com/v2/vagrantfile/index.html> so it never gets
+    # accidentally commited to the repository.
 
-    end
-    subconfig.vm.box = "giseongeom/centos7-64"
+    override.vm.box = "giseongeom/centos7-64"
   end
 
-  config.vm.define "virtualbox" do |subconfig|
-    subconfig.vm.provider "virtualbox" do |p|
-      p.name = "Kegbot"
-    end
-    subconfig.vm.box = "jhcook/centos7"
+  config.vm.provider "virtualbox" do |vb, override|
+    vb.name = "Kegbot"
+    override.vm.box = "jhcook/centos7"
   end
 
   config.vm.hostname = "theambassador"
