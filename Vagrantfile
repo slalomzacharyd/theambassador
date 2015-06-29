@@ -38,7 +38,7 @@ Vagrant.configure("2") do |config|
 	aws.region = "us-west-2"
 
     aws.keypair_name = "Kegbot"
-    override.ssh.private_key_path = "../Kegbot.pem"
+    override.ssh.private_key_path = "../Kegbot.pem"
 
 	aws.instance_type = 't2.micro'
     aws.ami = "ami-c7d092f7"
