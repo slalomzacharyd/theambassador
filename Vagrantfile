@@ -1,3 +1,5 @@
+# vi:syntax=ruby
+
 require "json"
 
 Vagrant.configure("2") do |config|
@@ -19,16 +21,42 @@ Vagrant.configure("2") do |config|
     # accidentally commited to the repository.
 
     override.vm.box = "giseongeom/centos7-64"
+    override.vm.synced_folder "../config", "/etc/puppet/hieradata"
   end
 
   config.vm.provider "virtualbox" do |vb, override|
     vb.name = "Kegbot"
-    override.vm.box = "jhcook/centos7"
+    # override.vm.box = "jhcook/centos7"
+	override.vm.box = "perconajayj/centos-x86_64"
+    override.vm.synced_folder "../config", "/etc/puppet/hieradata"
+    override.vm.network "forwarded_port", guest:server_port, host:server_port
+  end
+
+  config.vm.provider :aws do |aws, override|
+    aws.access_key_id = ENV["access_key_id"] 
+    aws.secret_access_key = ENV["secret_access_key"] 
+	aws.region = "us-west-2"
+
+    aws.keypair_name = "Kegbot"
+    override.ssh.private_key_path = "../Kegbot.pem"
+
+	aws.instance_type = 't2.micro'
+    aws.ami = "ami-c7d092f7"
+
+	aws.tags = {'Name' => 'Kegbot'}
+	aws.security_groups = [ENV["security_group"]]
+	override.vm.box = "perconajayj/centos-x86_64"
+
+    override.ssh.pty = true
+
+    override.ssh.username = "centos"
+
+    override.vm.synced_folder "../config", "/etc/puppet/hieradata", type: "rsync", rsync__args: ["--verbose", "--rsync-path='sudo rsync'", "--archive", "--delete", "-z"]
+
+    aws.user_data = File.read("aws_user_data.sh")
   end
 
   config.vm.hostname = "theambassador"
-  config.vm.network "forwarded_port", guest:server_port, host:server_port
-  config.vm.synced_folder "../config", "/etc/puppet/hieradata"
   config.vm.provision "shell", inline: "yum update -y; yum upgrade -y"
   config.vm.provision "shell", inline: "rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm || true"
   config.vm.provision "shell", inline: "yum install puppet git -y"
