@@ -54,7 +54,7 @@ Vagrant.configure("2") do |config|
 
     override.vm.synced_folder "../config", "/etc/puppet/hieradata", type: "rsync", rsync__args: ["--verbose", "--rsync-path='sudo rsync'", "--archive", "--delete", "-z"]
 
-    aws.user_data = File.read("aws_user_data.sh")
+    aws.user_data = File.read("#{cwd}/aws_user_data.sh")
   end
 
   config.vm.hostname = "theambassador"

@@ -5,7 +5,7 @@ class kegbot::install ($applications) {
         $path = $kegbot['path']
         $env_name = $kegbot['env_name']
         $user = $kegbot['user']
-        exec {"bash -c 'source ${path}/${env_name}/bin/activate; pip install kegbot'":
+        exec {"bash -c 'source ${path}/${env_name}/bin/activate; pip install --upgrade pip; pip install kegbot'":
             user => $user,
             path => "/usr/bin",
             creates => "${path}/${env_name}/bin/setup-kegbot.py",
